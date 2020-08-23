@@ -7,11 +7,11 @@ run:
 	--device /dev/snd \
 	--device /dev/dri \
 	--device /dev/input/js0 \
-	-e PULSE_SERVER=unix:$XDG_RUNTIME_DIR/pulse/native \
-	-v $XDG_RUNTIME_DIR/pulse/native:$XDG_RUNTIME_DIR/pulse/native \
-	--group-add $(getent group audio | cut -d: -f3) \
+	-e PULSE_SERVER=unix:${XDG_RUNTIME_DIR}/pulse/native \
+	-v ${XDG_RUNTIME_DIR}/pulse/native:${XDG_RUNTIME_DIR}/pulse/native \
 	-v ~/Downloads/roms:/home/docker/snes \
-	-v ~/.local/share:/.local/share \
+	-v ~/.local/share:/home/docker/.local/share \
+	-v ~/.zsnes/:/home/docker/.zsnes \
 	hldtux/zsnes
 
 run-mac:
