@@ -2,7 +2,7 @@ build:
 	docker build . -t hldtux/zsnes
 	
 run:
-	docker run -it --rm \
+	docker run -d -it --rm \
 	--cap-add=SYS_PTRACE \
 	-u 1000:1000 \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
@@ -20,7 +20,7 @@ run:
 	hldtux/zsnes
 
 run-mac:
-	docker run -it --rm -u 1000:1000 \
+	docker run -d -it --rm -u 1000:1000 \
 	--cap-add=SYS_PTRACE \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
 	-e DISPLAY=docker.for.mac.host.internal:0 \
