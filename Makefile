@@ -20,7 +20,7 @@ run:
 	hldtux/zsnes
 
 run-mac:
-	docker run -d -it --rm -u 1000:1000 \
+	docker run --privileged -it --rm -u 1000:1000 \
 	--cap-add=SYS_PTRACE \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
 	-e DISPLAY=docker.for.mac.host.internal:0 \

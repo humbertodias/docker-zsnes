@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-RUN dpkg --add-architecture i386 && apt update && apt -y upgrade && DEBIAN_FRONTEND=noninteractive apt install --no-install-recommends -y zsnes sudo curl unzip build-essential scanmem
+RUN dpkg --add-architecture i386 && apt update && apt -y upgrade && DEBIAN_FRONTEND=noninteractive apt install --no-install-recommends -y zsnes sudo curl unzip build-essential scanmem xterm
 
 # Memdig
 RUN cd /tmp && mkdir memdig && cd memdig && \
@@ -15,10 +15,14 @@ ARG GID=1000
 ARG PW=docker
 
 # Option1: Using unencrypted password/ specifying password
-RUN useradd -m ${USER} --uid=${UID} && echo "${USER}:${PW}" | chpasswd && adduser docker sudo
+RUN useradd -m ${USER} --uid=${UID} && echo "${USER}:${PW}" | chpasswd \
+&& adduser docker sudo \ 
+&& sed -i /etc/sudoers -re 's/^%sudo.*/%sudo ALL=(ALL:ALL) NOPASSWD: ALL/g'
+    
 
 # Setup default user, when enter docker container
 USER ${UID}:${GID}
 WORKDIR /home/${USER}
 
-CMD zsnes
+
+CMD sudo sysctl kernel.randomize_va_space=0 && zsnes
