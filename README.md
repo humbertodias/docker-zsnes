@@ -1,19 +1,12 @@
 # docker-zsnes
 
-Build
-
-```
-docker build . -t hldtux/zsnes
-```
-
 Run
-
-## Linux
 
 ```
 xhost +
 ```
 
+## Linux
 
 ```
 docker run -d -it --rm \
@@ -37,7 +30,7 @@ hldtux/zsnes
 
 ## Mac OS
 
-XQuartz running
+[XQuartz](https://www.xquartz.org/) running
 
 ```
 docker run -d -it --rm -u 1000:1000 \
@@ -48,6 +41,32 @@ docker run -d -it --rm -u 1000:1000 \
 -v ~/Downloads/roms:/home/docker \
 -v ~/.local/share:/.local/share \
 hldtux/zsnes
+```
+
+## Windows
+
+[Xming](https://sourceforge.net/projects/xming/) running
+
+
+```
+docker run -it --rm --cap-add=SYS_PTRACE -u 1000:1000 -e DISPLAY=192.168.1.6:0.0 --privileged -v C:\Users\hdias\Downloads\roms:home/docker hldtux/zsnes
+```
+
+## Test
+
+
+| Variable    | Address    | 
+| ------------|:----------:| 
+| MOEDAS      | 0x569f543f |
+| YOSHICOINS  | 0x569f5aa2 |
+| STATUSMARIO | 0x569f4699 |
+
+
+
+## Build
+
+```
+docker build . -t hldtux/zsnes
 ```
 
 # Ref

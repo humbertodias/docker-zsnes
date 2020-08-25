@@ -28,3 +28,6 @@ run-mac:
 	-v ~/Downloads/roms:/home/docker \
 	-v ~/.local/share:/.local/share \
 	hldtux/zsnes
+
+run-win:
+	docker run -it --rm --cap-add=SYS_PTRACE -u 1000:1000 -e DISPLAY=127.0.0.1:0.0 --privileged -v %userprofile%\Downloads\roms:home/docker hldtux/zsnes
