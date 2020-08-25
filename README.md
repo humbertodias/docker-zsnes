@@ -1,5 +1,11 @@
 # docker-zsnes
 
+## Build
+
+```
+docker build . -t hldtux/zsnes
+```
+
 Run
 
 ```
@@ -54,20 +60,28 @@ docker run -it --rm --cap-add=SYS_PTRACE -u 1000:1000 -e DISPLAY=192.168.1.6:0.0
 
 ## Test
 
-
-| Variable    | Address    | 
-| ------------|:----------:| 
-| MOEDAS      | 0x569f543f |
-| YOSHICOINS  | 0x569f5aa2 |
-| STATUSMARIO | 0x569f4699 |
-
-
-
-## Build
+Attaching to zsnes process
 
 ```
-docker build . -t hldtux/zsnes
+docker exec --privileged -ti `docker ps --filter "ancestor=hldtux/zsnes" -q` sudo memdig --attach zsnes
 ```
+
+Change
+```
+push $ADDRESS
+set $RANGE
+q
+```
+
+* Super Mario World [USA]
+
+    | Variable    | Address    | Range  |
+    | ------------|:----------:| ------ | 
+    | MOEDAS      | 0x569f543f | 0-99   |
+    | YOSHICOINS  | 0x569f5aa2 | 0-4    |
+    | STATUSMARIO | 0x569f4699 | 0-3    |
+
+
 
 # Ref
 

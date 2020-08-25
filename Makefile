@@ -1,8 +1,8 @@
 build:
 	docker build . -t hldtux/zsnes
 	
-run:
-	docker run -d -it --rm \
+run-linux:
+	docker run --privileged -d -it --rm \
 	--cap-add=SYS_PTRACE \
 	-u 1000:1000 \
 	-v /tmp/.X11-unix:/tmp/.X11-unix \
@@ -29,5 +29,8 @@ run-mac:
 	-v ~/.local/share:/.local/share \
 	hldtux/zsnes
 
-run-win:
-	docker run -it --rm --cap-add=SYS_PTRACE -u 1000:1000 -e DISPLAY=127.0.0.1:0.0 --privileged -v %userprofile%\Downloads\roms:home/docker hldtux/zsnes
+run-windows:
+	docker run --privileged -it --rm --cap-add=SYS_PTRACE -u 1000:1000 -e DISPLAY=127.0.0.1:0.0 -v %userprofile%\Downloads\roms:home/docker hldtux/zsnes
+
+docker-memdig:
+	docker exec --privileged -ti `docker ps --filter "ancestor=hldtux/zsnes" -q` sudo memdig --attach zsnes
